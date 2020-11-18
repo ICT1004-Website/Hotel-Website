@@ -43,7 +43,7 @@ session_start();
       ?>
        <li class="nav-item">
            <a class="nav-link" href="logout.php">
-               <span class="material-icons">logout</span>
+               <span class="material-icons">login</span>
            </a>
       </li>
       <?php
