@@ -1,55 +1,55 @@
 <?php
-session_start();
 
 //$email = "";
 $errorMsg = "";
 $success = true;
 
-include "head.inc.php";
-echo "<title>The Lodge | Member</title>";
-
 if (empty($_POST["email"])) {
     //The dot equals ".=" is a contatenation equals operator
-    $errorMsg .= "Email is required.<br>";
+    $errorMsg .= "Email is required. ";
     $success = false;
 } else {
     $email = sanitize_input($_POST["email"]);
     
     //Additional check to make sure e-mail address is well-formed.
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errorMsg .= "Invalid email format.<br>";
+        $errorMsg .= "Invalid email format. ";
         $success = false;
     }
 }
 
 if (empty($_POST["pwd"])) {
-    $errorMsg .= "Password is required.<br>";
+    $errorMsg .= "Password is required. ";
     $success = false;
 }
-
-echo "<body>";
-include "nav.inc.php";
-echo "<br><main class=\"container\">";
 
 if ($success) {
     authenticateUser();
 }
 
 if ($success) {
+    //Add session variable for member id and email
     $_SESSION["memberid"] = $memberid;
     $_SESSION["email"] = $_POST["email"];
-    echo "<h3>" . $fname . " " . $lname. ", welcome back to The Lodge</h3>";
-    echo "<a href=\"ViewRoom.php\"><button class=\"btn btn-success\">View rooms</button></a>";
+    include "head.inc.php";
+    include "nav.inc.php";
+    echo "<title>The Lodge | Member</title>";
+    echo "<header class=\"jumbotron text-center\" style=\"background-color: grey;\">";
+    echo "<h1 class=\"display-4\">" . $fname . " " . $lname . ",<br> welcome back to The Lodge</h1>";
+    echo "<br><h6>To view our rooms, click <a href=\"/ViewRoom.php\">here</a></h6>";
+    echo "</header>";
+    echo "<br><br>";
+    include "footer.inc.php";
+    echo "</main>";
+    echo "</body>";
 } else {
+    //Set error messages into session
     $_SESSION['error'] = $errorMsg;
+    $_SESSION['email'] = $email;
+    //Redirect to login page
     header("Location: /login.php");
     exit;
 }
-
-echo "<br><br>";
-include "footer.inc.php";
-echo "</main>";
-echo "</body>";
 
 function sanitize_input($data) {
     $data = trim($data);
@@ -60,7 +60,7 @@ function sanitize_input($data) {
 
 function authenticateUser()
 {
-    global $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;
+    global $memberid, $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
     $conn = new mysqli($config['servername'], $config['username'],
