@@ -1,15 +1,35 @@
 <?php
-session_start();
-
-//If user is logged in, redirect to logout page
+//If user is logged in, redirect to view rooms page
 if(isset($_SESSION["memberid"])){
-    header("Location: /logout.php");
+    header("Location: /ViewRoom.php");
     //Exit to stop content from loading
     exit;
 }
 ?>
 <html>
     <head>
+        <style>
+            .alert {
+              padding: 20px;
+              background-color: #f44336;
+              color: white;
+            }
+
+            .closebtn {
+              margin-left: 15px;
+              color: white;
+              font-weight: bold;
+              float: right;
+              font-size: 22px;
+              line-height: 20px;
+              cursor: pointer;
+              transition: 0.3s;
+            }
+
+            .closebtn:hover {
+              color: black;
+            }
+        </style>
         <?php
             include "head.inc.php";
         ?>
@@ -27,8 +47,18 @@ if(isset($_SESSION["memberid"])){
         </header>
         
         <main class="container">
-            <form action="" method="post" style="margin-left: 25%;margin-right: 25%;">
+            <form action="process_login.php" method="post" style="margin-left: 25%;margin-right: 25%;">
                 <div class="form-group">
+                    <?php
+                        //If email is set in session, an error has occured, display errors
+                        if(isset($_SESSION["email"])) {
+                            echo "
+                                <div class=\"alert\">
+                                  <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> 
+                                  <strong>Error!</strong> " . $_SESSION['error'] .  "
+                                </div>";
+                        }
+                    ?>
                     <label for="email"><b>Email</b></label>
                     <?php
                         //Check for invalid login attempt, place previously entered email if yes
