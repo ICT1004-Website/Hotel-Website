@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Hotel</title>
+        <title>The Lodge | Suites</title>
         <?php
         include "head.inc.php"
         ?>
@@ -15,76 +15,97 @@ and open the template in the editor.
         <?php
         include "nav.inc.php";
         ?>
-        <header class="jumbotron text-center">
-            <h1 class="display-4">Overview</h1>
-            <h2>Suites</h2>
-
+        <header class="jumbotron jumbotron-fluid text-center" style=" background-image: url(https://imgcy.trivago.com/c_limit,d_dummy.jpeg,f_auto,h_1300,q_auto,w_2000/uploadimages/33/20/33208426.jpeg);">
+            <h1>Rooms & Suites</h1>               
         </header>
-        <main class="container">
-            <section>
-                <div class="row">
-                    <article class="col-sm">                    
-                        <h3>White suites</h3>
-                        <figure>                            
-                            <img class = "img-thumbnail" 
-                                 src="images/1st room.jpg" 
-                                 alt="White suites"
-                                 title="View larger image..."/>
-                            <figcaption>White suites</figcaption>
-                        </figure>
-                        <p>
-                            White suites
-                        </p>
-                    </article>
-                    <article class="col-sm">
-                        <h3>White suites</h3>
-                        <figure>
-                            <img class="img-thumbnail" 
-                                 src="images/2nd room.jpg" 
-                                 alt="Grand Suites"
-                                 title="View larger image..."/>
-                            <figcaption>Grand Suites</figcaption>
-                        </figure>
-                        <p>
-                            Grand Suites
-                        </p>
-                    </article>
-                </div>
-            </section>
-            <section>
-                <div class="row">                      
-                    <article class="col-sm">
-                        <h3>Family Suites</h3>
-                        <figure>
-                            <img class="img-thumbnail" 
-                                 src="images/3rd room.jpg" 
-                                 alt="Family Suites"
-                                 title="View larger image..."/>
-                            <figcaption>Family Suites</figcaption>
-                        </figure>
-                        <p>
-                            Family Suites
-                        </p>
-                    </article>
-                    <article class="col-sm">
-                        <h3>Romantica Suites</h3>
-                        <figure>
-                            <img class="img-thumbnail" 
-                                 src="images/4th room.jpg" 
-                                 alt="Calico"
-                                 title="View larger image..."/>
-                            <figcaption>Romantica Suites</figcaption>
-                        </figure>
-                        <p>
-                            Romantica Suites
-                        </p>
-                    </article>
-                </div>
-            </section>
-        </main>
-        <?php
-        include "footer.inc.php";
-        ?>
-    </body>
+
+    </header>
+    <main class="container-fluid">
+        <section>
+            <div class="row">
+                <article class="col-sm">                    
+                    <h3>Cozy Room</h3>
+                    <figure>                            
+                        <img class="d-block w-100" 
+                             src="images/single_room.jpg" 
+                             alt="Single Room"
+                             title="View larger image..."/>
+                        <figcaption>Single Room</figcaption>
+                    </figure>
+                    <p>
+                        Our Cozy Room brings out comfort and the feel of your "home". 
+                    </p>
+                </article>
+                <article class="col-sm">
+                    <h3>Summer Room</h3>
+                    <figure>
+                        <img class="d-block w-100"
+                             src="images/double_room.jpg" 
+                             alt="double_room"
+                             title="View larger image..."/>
+                        <figcaption>Double Room</figcaption>
+                    </figure>
+                    <p>
+                        Our Summer Rooms are themed in subtle hues for an atmosphere of relaxed, modern elegance.
+                    </p>
+                </article>
+            </div>
+        </section>
+        <section>
+            <div class="row">                      
+                <article class="col-sm">
+                    <h3>Royal Suites</h3>
+                    <figure>
+                        <img class="d-block w-100" 
+                             src="images/suites.jpg" 
+                             alt="Suites"
+                             title="View larger image..."/>
+                        <figcaption>Suites</figcaption>
+                    </figure>
+                    <p>
+                        The Royal Suite evokes a sense of couture 
+                        elegance drawn from the opulent history of classical styles. 
+                        Reside in style in the generously proportioned one-bedroom suite
+                        that comes with a spacious living room.
+                    </p>
+                </article>
+                <article class="col-sm">
+                    <h3>Elegant Studio</h3>
+                    <figure>
+                        <img class="d-block w-100" 
+                             src="images/studio.jpeg" 
+                             alt="Studio"
+                             title="View larger image..."/>
+                        <figcaption>Studio</figcaption>
+                    </figure>
+                    <p>
+                        A space saving invention of this studio provides 2 level platform
+                        that allows you to read a book while enjoying the view at the top level. 
+                    </p> 
+                </article>
+            </div>
+            <div class="row">
+                <article class="col-sm">
+                    <h3>Picturesque Villa</h3>
+                    <figure>
+                        <img class="d-block w-100" 
+                             src="images/villa.jpg" 
+                             alt="Villa"
+                             title="View larger image..."/>
+                        <figcaption>Villa</figcaption>
+                    </figure>
+                    <p>
+                        Picturesque Villa will take your breath away as you enjoy the breathtaking views
+                        and scenery in the open concept room.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+    <?php
+    include "footer.inc.php";
+    ?>
+</body>
 </html>
+
     
