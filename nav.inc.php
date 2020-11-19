@@ -50,7 +50,7 @@ session_start();
                 ?>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="sign in.php">
+                    <a class="nav-link" href="login.php">
                         <span class="material-icons">login</span>
                     </a>
                 </li>
