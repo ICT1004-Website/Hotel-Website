@@ -41,9 +41,39 @@
 
         <section class="steps">
             <h3>Guest Information</h3>
-            <input type="text" id="fname" name="firstname" placeholder="First Name" required>
-            <input type="text" required id="lname" name="lastname" required placeholder="Last Name">
-            <input type="text" required id="phone" name="phone" required placeholder="Phone">
+            <div class="row">
+              <div class="split-col">
+                <label class="label">Title:</label>
+                <select name="title" id="title">
+                    <option value="" disabled selected hidden>Prefix:</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Dr.">Dr.</option>
+                </select>
+              </div>
+              <div class="split-col">
+                <label class="label">First Name:</label>
+                <input type="text" id="fname" name="firstname" placeholder="First Name" required>
+              </div>
+              <div class="split-col">
+                <label class="label">Last Name:</label>
+                <input type="text" required id="lname" name="lastname" required placeholder="Last Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="split-col">
+                <label class="label">CC"</label>
+                <input type="tel" id="phone">
+              </div>
+              <div class="split-col">
+                <label class="label">Phone Number:</label>
+                <input type="text" required id="phone" name="phone" required placeholder="Phone">
+              </div>
+            </div>        
+            <label class="label">Email:</label>
             <input type="text" required class="input" name="email" placeholder="E-mail">
 
         </section>
@@ -54,19 +84,19 @@
         </section>
         <section class="steps">
             <h3>Payment</h3>
-            <label class="label">Email:  <i class="fas fa-at"></i></label>
+            <label class="label">Email:<i class="fas fa-at"></i></label>
             <input type="text" required class="input" name="email" placeholder="E-mail">
              <label class="label">Cardholder Name:  <i class="fas fa-user"></i></label>
             <input type="text" class="input" name="card_holder" placeholder="Card Holder">
-             <label class="label">Card Number:  <i class="far fa-credit-card"></i></label>
+             <label class="label">Card Number:<i class="far fa-credit-card"></i></label>
             <input type="text" required class="input" name="card_number" placeholder="Card Number" data-mask="0000 0000 0000 0000">
             <div class="row">
               <div class="split-col">
-                <label class="label">Expiry Date:  <i class="fas fa-calendar-alt"></i></label>
+                <label class="label">Expiry Date:<i class="fas fa-calendar-alt"></i></label>
                 <input type="text" class="input" id="expiry_date" name="expiry_date" placeholder="MM / YY" data-mask="00 / 00">
               </div>
               <div class="split-col">
-                <label class="label">CVC:  <i class="fas fa-key"></i></label>
+                <label class="label">CVC:<i class="fas fa-key"></i></label>
                 <input type="text" required class="input" id="cvv" name="cvc" placeholder="CVC" data-mask="000">
               </div>
             </div>

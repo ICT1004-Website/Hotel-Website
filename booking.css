@@ -80,7 +80,20 @@ section {
 
 
 input {
-  width: 50%;
+  width: 33%;
+  margin: 7px 0px;
+  display: inline-block;
+  padding: 12px 25px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 1em;
+  font-family:inherit;
+  background:white;
+}
+
+select {
+  width: 100%;
   margin: 7px 0px;
   display: inline-block;
   padding: 12px 25px;
@@ -138,10 +151,11 @@ text-decoration: none;
 }
 
 .split-col {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
+  -ms-flex: 33%; /* IE10 */
+  flex: 33%;
   padding: 0 16px;
 }
+
 .container {
   background-color: #ffffff;
   padding: 5px 20px 15px 20px;
@@ -151,4 +165,13 @@ text-decoration: none;
 
 .label{
     text-align: left;
+}
+
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column;
+  }
+  .sumamry {
+    margin-bottom: 20px;
+  }
 }
