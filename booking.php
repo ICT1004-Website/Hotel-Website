@@ -65,8 +65,7 @@
             </div>
             <div class="row">
               <div class="split-col">
-                <label class="label">CC"</label>
-                <input type="tel" id="phone">
+                  <input type="tel" id="phone" placeholder="+65">
               </div>
               <div class="split-col">
                 <label class="label">Phone Number:</label>
