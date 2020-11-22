@@ -82,7 +82,6 @@ and open the template in the editor.
                 function authenticateUser() {
                     global $memberid, $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;
                     // Create database connection.
-                    /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                     $config = parse_ini_file('../../private/db-config.ini');
                     $conn = new mysqli($config['servername'], $config['username'],
                             $config['password'], $config['dbname']);
@@ -117,7 +116,6 @@ and open the template in the editor.
                         $stmt->close();
                     }
                     $conn->close();
-                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
                     $fname = "Zhong Yi"; $lname = "Kee"; $email = "m@genmcorp.net"; $memberid = 1;
                 }
                 ?>
