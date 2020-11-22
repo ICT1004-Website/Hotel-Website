@@ -1,0 +1,23 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22 Nov 2020, 8:40:55 pm
+    Author     : keezh
+*/
+
+.facility {
+    margin-bottom: 2%;
+}
+
+.facil-left {
+    float: left;
+    margin-right: 1%;
+}
+
+.facil-right {
+    float:right;
+    margin-left: 1%;
+}

@@ -1,57 +1,42 @@
-<?php
-//If user is logged in, redirect to view rooms page
-if(isset($_SESSION["memberid"])){
-    header("Location: /ViewRoom.php");
-    //Exit to stop content from loading
-    exit;
-}
-?>
 <html>
     <head>
-        <style>
-            .alert {
-              padding: 20px;
-              background-color: #f44336;
-              color: white;
-            }
-
-            .closebtn {
-              margin-left: 15px;
-              color: white;
-              font-weight: bold;
-              float: right;
-              font-size: 22px;
-              line-height: 20px;
-              cursor: pointer;
-              transition: 0.3s;
-            }
-
-            .closebtn:hover {
-              color: black;
-            }
-        </style>
+        <title>The Lodge | Sign In</title>
         <?php
             include "head.inc.php";
         ?>
-        <title>The Lodge | Sign In</title>
+        <link rel="stylesheet" href="login.css">
     </head>
     
     <body>
         <?php
-             include "nav.inc.php";
+            include "nav.inc.php";
+            //If user is logged in, redirect to view rooms page
+            if(isset($_SESSION["memberid"])){
+                header("Location: /ViewRoom.php");
+                //Exit to stop content from loading
+            exit;
+            } else {
         ?>
-        
-        <header class="jumbotron text-center" style="background-color: grey;">
+        <header class="jumbotron jumbotron-fluid text-center" style=" background-image: url(https://imgcy.trivago.com/c_limit,d_dummy.jpeg,f_auto,h_1300,q_auto,w_2000/uploadimages/33/20/33208426.jpeg);">
             <h1 class="display-4">Sign In</h1>
             <h6>For existing members</h6>
         </header>
         
         <main class="container">
-            <form action="process_login.php" method="post" style="margin-left: 25%;margin-right: 25%;">
+            <form class="login-form" action="process_login.php" method="post">
                 <div class="form-group">
                     <?php
+                        if(isset($_SESSION["logoutmsg"])) {
+                            echo "
+                                <div class=\"alert alert_success\">
+                                  <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> 
+                                  <strong>Error!</strong> " . $_SESSION['logoutmsg'] .  "
+                                </div>";
+                            //Reset session variables
+                            session_unset();
+                        }
                         //If email is set in session, an error has occured, display errors
-                        if(isset($_SESSION["email"])) {
+                        if(isset($_SESSION["error"])) {
                             echo "
                                 <div class=\"alert\">
                                   <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> 
@@ -80,7 +65,8 @@ if(isset($_SESSION["memberid"])){
         
         <br/>
         <?php
-             include "footer.inc.php";
+            include "footer.inc.php";
+            }
          ?>
     </body>
 </html>

@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>The Lodge | Process Login</title>
+        <title>The Lodge | Welcome</title>
         <?php
         include "head.inc.php"
         ?>
@@ -15,7 +15,6 @@ and open the template in the editor.
         <?php
         include "nav.inc.php";
         ?>
-        <main class ="container">
             <?php
             $email = "";
             $errorMsg = "";
@@ -50,19 +49,20 @@ and open the template in the editor.
 
 
                 if ($success) {
+                    //Clear previous session variables
+                    session_unset();
                     //Add session variable for member id and email
                     $_SESSION["memberid"] = $memberid;
-                    $_SESSION["email"] = $_POST["email"];
+                    $_SESSION["email"] = $email;
+                    $_SESSION["fname"] = $fname;
+                    $_SESSION["lname"] = $lname;
                     include "head.inc.php";
                     echo "<title>The Lodge | Member</title>";
-                    echo "<header class=\"jumbotron text-center\" style=\"background-color: grey;\">";
+                    echo "<header class=\"jumbotron jumbotron-fluid text-center\" style=\" background-image: url(https://imgcy.trivago.com/c_limit,d_dummy.jpeg,f_auto,h_1300,q_auto,w_2000/uploadimages/33/20/33208426.jpeg);\">";
                     echo "<h1 class=\"display-4\">" . $fname . " " . $lname . ",<br> welcome back to The Lodge</h1>";
                     echo "<br><h6>To view our rooms, click <a href=\"/ViewRoom.php\">here</a></h6>";
                     echo "</header>";
                     echo "<br><br>";
-                    include "footer.inc.php";
-                    echo "</main>";
-                    echo "</body>";
                 } else {
                     //Set error messages into session
                     $_SESSION['error'] = $errorMsg;
@@ -82,6 +82,7 @@ and open the template in the editor.
                 function authenticateUser() {
                     global $memberid, $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;
                     // Create database connection.
+                    /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                     $config = parse_ini_file('../../private/db-config.ini');
                     $conn = new mysqli($config['servername'], $config['username'],
                             $config['password'], $config['dbname']);
@@ -116,9 +117,10 @@ and open the template in the editor.
                         $stmt->close();
                     }
                     $conn->close();
+                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+                    $fname = "Zhong Yi"; $lname = "Kee"; $email = "m@genmcorp.net"; $memberid = 1;
                 }
                 ?>
-            </main>
             <?php
             include "footer.inc.php";
             ?>

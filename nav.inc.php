@@ -18,36 +18,33 @@ session_start();
                 <a class="nav-link" href="ViewRoom.php">Rooms & Suites</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="facilities.php">Facilities</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="about.php">About us</a>
             </li>
-            <?php
-            if (isset($_SESSION["memberid"])) {
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">View Bookings</a>
-                </li>
-                <?php
-            }
-            ?>
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="register.php">
-                    <span class="material-icons">account_circle</span>
-                </a>
-            </li>
             <?php
             if (isset($_SESSION["memberid"])) {
                 ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php">
-                        <span class="material-icons">login</span>
-                    </a>
-                </li>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">View Bookings</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                    </div>
+                </div>
                 <?php
             } else {
                 ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="register.php">
+                        <span class="material-icons">account_circle</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login.php">
