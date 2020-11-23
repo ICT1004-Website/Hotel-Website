@@ -17,6 +17,7 @@
         <title>The Lodge | Booking</title>
     </head>
     <body>
+        <main>
         <?php
         include "nav.inc.php";
         ?>
@@ -172,5 +173,6 @@
         <?php
         include "footer.inc.php";
         ?>
+        </main>
     </body>
 </html>
