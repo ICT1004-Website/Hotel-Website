@@ -3,7 +3,7 @@ session_start();
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index.php">
-        <img alt="the lodge" src="/images/logo.png"
+        <img alt="the lodge" src="images/logo.png"
              width=100" height="40">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@ session_start();
             <li class="nav-item">
                 <a class="nav-link" href="about.php">About us</a>
             </li>
-        </ul>
+        </ul>      
 
         <ul class="navbar-nav ml-auto">
             <?php
