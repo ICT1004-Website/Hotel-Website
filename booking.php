@@ -22,7 +22,6 @@
         include "nav.inc.php";
         ?>
         <h1>Booking Completed</h1>
-
         <div id="svg_wrap"></div>
         <button class="mem_button"  id="login" onclick="window.location.href = 'login.php'", type="button">Member Login</button>
         <form action="Cbooking.php" method="POST">
@@ -34,7 +33,6 @@
                     
                 </section>
                 <?php
-                if (is_null($_SESSION["memberid"])) {
                     echo "<section class='steps'>";                    
                     echo "<h3>Guest Information</h3>";
                     echo "<div class='row'>";
@@ -52,21 +50,70 @@
                     echo "</div>";
                     echo "<div class='split-col'>";
                     echo "<label class='label'>First Name:</label>";
-                    echo "<input type='text' id='fname' name='firstname' placeholder='First Name' required>";
+                    echo "<input type='text' id='Gfname' name='fname' placeholder='First Name' required>";
                     echo "</div>";
                     echo "<div class='split-col'>";
                     echo "<label class='label'>Last Name:</label>";
-                    echo "<input type='text' required id='lname' name='lastname' required placeholder='Last Name'>";
+                    echo "<input type='text' required id='Glname' name='lname' required placeholder='Last Name'>";
                     echo "</div>";
                     echo "</div>";
                     echo "<label class='label'>Phone Number:</label>";
-                    echo "<input type='text' required id='phone' name='phone' required placeholder='Phone'>";
+                    echo "<input type='text' required id='Gphone' name='phone' required placeholder='Phone'>";
                     echo "<label class='label'>Email:</label>";
                     echo "<input type='text' required class='input' name='email' placeholder='E-mail'>";
                     echo "</section>";
-                }
                     
-                else if (isset($_SESSION["memberid"])){
+                    $errorMsg = "";
+                    $success = true;
+
+                    // Sanitize Email
+                    if (empty($_POST["email"])) {
+                        //The dot equals ".=" is a contatenation equals operator
+                        $errorMsg .= "Email is required.<br>";
+                        $success = false;
+                    } else {
+                        $email = sanitize_input($_POST["email"]);
+
+                        //Additional check to make sure e-mail address is well-formed.
+                        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                            $errorMsg .= "Invalid email format.<br>";
+                            $success = false;
+                        }
+                    }
+                    // Sanitize First Name
+                    if (empty($_POST["fname"])) {
+                        $errorMsg .="First name is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["fname"]);
+                    }
+                    // Sanitize Last Name
+                    if (empty($_POST["lname"])) {
+                        $errorMsg .="Last name is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["lname"]);
+                    }
+                    // Sanitize Phone
+                    if (empty($_POST["phone"])) {
+                        $errorMsg .="Phone number is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["phone"]);
+                    }
+                    
+                    //Fucntion of sanitizing input
+                    function sanitize_input($data) {
+                        $data = trim($data);
+                        $data = stripslashes($data);
+                        $data = htmlspecialchars($data);
+                        return $data;
+                        }
+                        
+                if (isset($_SESSION["memberid"])){
                     $config = parse_ini_file('../../private/db-config.ini');
                     $conn = new mysqli($config['servername'], $config['username'],
                             $config['password'], $config['dbname']);
@@ -92,6 +139,7 @@
                     $conn->close();
                 }
                 
+                
                 ?>
                 <section class="steps">
                     <h3>Payment</h3>                    
@@ -106,9 +154,43 @@
                         </div>
                         <div class="split-col">
                             <label class="label">CVC:  <i class="fas fa-key"></i></label>
-                            <input type="text" required class="input" id="cvv" name="cvc" placeholder="CVC" data-mask="000">
+                            <input type="text" required class="input" id="cvc" name="cvc" placeholder="CVC" data-mask="000">
                         </div>
                     </div>
+                    <?php
+                    //Sanitize card holder name
+                    if (empty($_POST["card_holder"])) {
+                        $errorMsg .="Card Holder name is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["card_holder"]);
+                    }
+                    //Sanitize card number
+                    if (empty($_POST["card_number"])) {
+                        $errorMsg .="Card Number is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["card_number"]);
+                    }
+                    //Sanitize expiry
+                    if (empty($_POST["expiry_date"])) {
+                        $errorMsg .="Expiry Date is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["expiry_date"]);
+                    }
+                    //Sanitize cvc
+                    if (empty($_POST["cvc"])) {
+                        $errorMsg .="CVC Number is required.<br>";
+                        $success = false;
+                    }
+                    else{
+                        sanitize_input($_POST["cvc"]);
+                    } 
+                    ?>
                 </section>
             </div>
             <div class="summary">
