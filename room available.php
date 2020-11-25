@@ -21,7 +21,7 @@
         include "nav.inc.php";
         ?>
         <h1>Rooms Available</h1>
-
+        
         <div id="svg_wrap"></div>
         <div class = row>
             <div class ="multi-steps">
@@ -39,7 +39,7 @@
                 $errorMsg = "Connection failed: " . $conn->connect_error;
                 $success = false;
             }
-            $sql = "select max_no_ppl, description, price_per_night from the_lodge_roomtype 
+            $sql = "select * from the_lodge_roomtype 
                     where max_no_ppl <= ".$guest." AND roomtypeId in  
                     (SELECT distinct roomtypeId from the_lodge_rooms where room_no not in 
                     (select room_no from the_lodge_booking WHERE '" . $start . "' >= arrival AND '" . $end . "' <= checkout));";
@@ -52,15 +52,15 @@
                     if ($row["description"] == "single room") {
                         echo "<div class='row'>";
                         echo "<div class='col'>";
-                        echo "<img src='images/single_room.jpg' 
-                                alt='single room' 
-                                width='500' 
-                                height='200'<br>";
+                        echo "<img src='images/".$row["image"]."' alt='".$row["image"].
+                                "' style='max-width:40%;height:auto;'><br>";
                         echo "<div class='col'>";
                         echo "<h4>$" . $row["price_per_night"] . "</h4><br>";
                         echo "<form action='booking.php' method='post'>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='roomtype' value='single room'></div>";
+                        echo "<div class='form-group'>";
+                        echo "<input type='hidden' name='image' value='".$row["image"]."'></div>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='price' value='".$row["price_per_night"]."'></div>";
                         echo "<div class='form-group'>";
@@ -79,15 +79,15 @@
                     else if ($row["description"] == "double room") {              
                         echo "<div class=\"row\">";
                         echo "<div class=\"col\">";
-                        echo "<img src=\"images/double_room.jpg\" 
-                                alt=\"double room\" 
-                                width=\"500\" 
-                                height=\"200\"<br>";
-                        echo "<div class=\"col\">";
+                        echo "<img src='images/".$row["image"]."' alt='".$row["image"].
+                                "' style='max-width:40%;height:auto;'><br>";
+                        echo "<div class='col'>";
                         echo "<h4>$" . $row["price_per_night"] . "</h4><br>";
                         echo "<form action='booking.php' method='post'>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='roomtype' value='double room'></div>";
+                        echo "<div class='form-group'>";
+                        echo "<input type='hidden' name='image' value='".$row["image"]."'></div>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='start' value='".$start."'></div>";
                         echo "<div class='form-group'>";
@@ -105,15 +105,15 @@
                     } else if ($row["description"] == "suites") {            
                         echo "<div class=\"row\">";
                         echo "<div class=\"col\">";
-                        echo "<img src=\"images/suites.jpg\" 
-                                alt=\"suites\" 
-                                width=\"500\" 
-                                height=\"200\"<br>";
-                        echo "<div class=\"col\">";
+                        echo "<img src='images/".$row["image"]."' alt='".$row["image"].
+                                "' style='max-width:40%;height:auto;'><br>";
+                        echo "<div class='col'>";
                         echo "<h4>$" . $row["price_per_night"] . "</h4><br>";
                         echo "<form action='booking.php' method='post'>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='roomtype' value='suites'></div>";
+                        echo "<div class='form-group'>";
+                        echo "<input type='hidden' name='image' value='".$row["image"]."'></div>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='start' value='".$start."'></div>";
                         echo "<div class='form-group'>";
@@ -131,15 +131,15 @@
                     } else if ($row["description"] == "studio") {
                         echo "<div class=\"row\">";
                         echo "<div class=\"col\">";
-                        echo "<img src=\"images/studio.jpeg\" 
-                                alt=\"studio\" 
-                                width=\"500\" 
-                                height=\"200\"<br>";
-                        echo "<div class=\"col\">";
+                        echo "<img src='images/".$row["image"]."' alt='".$row["image"].
+                                "' style='max-width:40%;height:auto;'><br>";
+                        echo "<div class='col'>";
                         echo "<h4>$" . $row["price_per_night"] . "</h4><br>";
                         echo "<form action='booking.php' method='post'>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='roomtype' value='studio'></div>";
+                        echo "<div class='form-group'>";
+                        echo "<input type='hidden' name='image' value='".$row["image"]."'></div>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='start' value='".$start."'></div>";
                         echo "<div class='form-group'>";
@@ -156,16 +156,16 @@
                         echo "</div>";
                     } else if ($row["description"] == "villa") {  
                         echo "<div class=\"row\">";  
-                        echo "<div class=\"col\">";       
-                        echo "<img src=\"images/villa.jpg\" 
-                                alt=\"villa\" 
-                                width=\"500\" 
-                                height=\"200\"<br>";
-                        echo "<div class=\"col\">";
+                        echo "<div class=\"col\">";     
+                        echo "<img src='images/".$row["image"]."' alt='".$row["image"].
+                                "' style='max-width:40%;height:auto;'><br>";
+                        echo "<div class='col'>";
                         echo "<h4>$" . $row["price_per_night"] . "</h4><br>";
                         echo "<form action='booking.php' method='post'>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='roomtype' value='villa'></div>";
+                        echo "<div class='form-group'>";
+                        echo "<input type='hidden' name='image' value='".$row["image"]."'></div>";
                         echo "<div class='form-group'>";
                         echo "<input type='hidden' name='start' value='".$start."'></div>";
                         echo "<div class='form-group'>";
