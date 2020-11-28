@@ -17,14 +17,14 @@ session_start();
   
  if ($success)
    {   
-   
+   //Vaild Input
    echo "<h2>Your booking is cancelled!</h2>";
-   //echo "Member ID is " . $_SESSION["member_id"] . ".<br>";
    echo "<form action='viewbooking.php' method='post'><div class='form-group'><button class='btn btn-danger'>Return to View Booking</button></div></form>";
    authenticate();
    }
    else
    {
+    //Invaild Input
     echo "<h2>Oops!</h2>";
     echo "<h4>The following errors were detected:</h4>";
     echo "<p>" . $errorMsg . "</p>";
@@ -50,9 +50,8 @@ function authenticate()
  }
  else
  {
-     //$id = $_SESSION["member_id"]; 
-     //$id=$_GET["id"];
-     $bookingid=$_POST["bookingId"];
+ //get Booking ID from previous page
+ $bookingid=$_POST["bookingId"];
  // Prepare the statement:
  $stmt = $conn->prepare("DELETE FROM the_lodge_booking WHERE bookingId=?");
  $stmt->bind_param("i", $bookingid);

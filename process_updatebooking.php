@@ -18,6 +18,27 @@ $errorMsg = "";
 $success = true;
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
+  //sanitize user input for comment
+  if (empty($_POST["comment_update"]))
+  {
+      $success = true;
+      
+  }
+  else
+  {
+      $comment = sanitize_input($_POST["comment_update"]);
+      //$comment=filter_var($_POST["comment_update"], FILTER_SANITIZE_STRING);
+      if (preg_match('/^[a-zA-Z0-9-,. ]+$/', $comment))
+      {
+          $success = true;
+      } else {
+          $errorMsg .= "Invalid comment. <br>Please enter only alphabet, numbers, comma, fullstop or dash.<br>";
+         $success = false;
+      }
+     
+  }
+ 
+  //sanitize user input for Booking ID
   if (empty($_POST["bookingId_update"]))
   {
    $errorMsg .= "Booking ID is required.<br>";
@@ -25,17 +46,28 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
   }
   else
   {
-    $fname = sanitize_input($_POST["bookingId_update"]);
+    $bookingId = sanitize_input($_POST["bookingId_update"]);
   }
-  if (empty($_POST["roomNo_update"]))
+  //sanitize user input for No of guest
+  if (empty($_POST["guestNo_update"]))
   {
-   $errorMsg .= "Room No is required.<br>";
+   $errorMsg .= "No of guests is required.<br>";
    $success = false;
   }
   else
   {
-    $lname = sanitize_input($_POST["roomNo_update"]);
+    $guestNo = sanitize_input($_POST["guestNo_update"]);
+    $maxnoPpl= sanitize_input($_POST["maxnoPpl_update"]);
+    if(!filter_var($guestNo,FILTER_SANITIZE_NUMBER_INT)){
+      $errorMsg .= "Invalid format for no of guests.<br>";
+      $success = false;
+    } else if(1>$guestNo || $guestNo>$maxnoPpl){
+       $errorMsg .= "Invalid no of guests.<br>";
+       $success = false;
+    }
+  
   }
+  //sanitize user input for Arrival Date
   if (empty($_POST["arrival_update"]))
   {
    $errorMsg .= "Arrival date is required.<br>";
@@ -46,24 +78,20 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
     $arrivaldate = sanitize_input($_POST["arrival_update"]);
     $arrivaldate_validate = date("Y-m-d", strtotime($arrivaldate));
  
- $date_now = date("Y-m-d H:i:s");;
-$myregex = "~^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$~";
+  $date_now = date("Y-m-d H:i:s");;
+  $myregex = "~^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$~";
 
  if (!filter_var($arrivaldate_validate,FILTER_VALIDATE_REGEXP,array("options"=>array("regexp"=> $myregex))))
    {
    $errorMsg .= "Invalid arrival date format.<br>";
    $success = false;
    }
-    /*if (!filter_var (preg_replace("([^0-9/] | [^0-9-])","",htmlentities($arrivaldate_validate))))
-   {
-   $errorMsg .= "Invalid arrival date format.<br>";
-   $success = false;
-   }*/
    if ($date_now > $arrivaldate) {
    $errorMsg .= "Invalid arrival date.<br>";
    $success = false;
-}
-  }
+   } 
+   }
+   //sanitize user input for Checkout Date
    if (empty($_POST["checkout_update"]))
   {
    $errorMsg .= "Checkout date is required.<br>";
@@ -82,31 +110,24 @@ $myregex = "~^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$~";
    $errorMsg .= "Invalid check-out date format.<br>";
    $success = false;
    }
-   /* if (!filter_var (preg_replace("([^0-9/] | [^0-9-])","",htmlentities($checkoutdate_validate))))
-   {
-   $errorMsg .= "Invalid check-out date format.<br>";
-   $success = false;
-   }*/
    if ($date_now > $checkoutdate) {
     $errorMsg .= "Invalid check-out date.<br>";
     $success = false;
-    }
-     
+   }
   }
+     
+ 
  if ($success)
    {   
- 
+   //Vaild Input
    echo "<h2>Your booking is updated!</h2>";
-   //echo "Member ID is " . $_POST["member_id"] . ".<br>";
-    //echo "Member ID is " . $_POST["fname_update"] . ".<br>";
-     //echo "Member ID is " . $_POST["lname_update"] . ".<br>";
-      //echo "Member ID is " .$_POST["email_update"] . ".<br>";
    echo "<form action='viewbooking.php' method='post'><div class='form-group' display: flex;
   justify-content: center;><button class='btn btn-success'>Return to View Booking</button></div></form>";
      authenticate();
    }
    else
    {
+    //Invaid Input
     echo "<h2>Oops!</h2>";
     echo "<h4>The following errors were detected:</h4>";
     echo "<p>" . $errorMsg . "</p>";
@@ -125,7 +146,7 @@ $myregex = "~^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$~";
 
 function authenticate()
 {
- global $arrivaldate, $checkoutdate, $errorMsg, $success;
+ global $comment,$guestNo,$bookingId, $arrivaldate, $checkoutdate, $errorMsg, $success;
  // Create database connection.
  $config = parse_ini_file('../../private/db-config.ini');
  $conn = new mysqli($config['servername'], $config['username'],
@@ -138,14 +159,15 @@ function authenticate()
  }
  else
  {
-     //$id = $_SESSION["member_id"]; 
-     //$id=$_GET["id"];
+  //get the sanitize input
+  $comment=$_POST["comment_update"];
+  $guestNo=$_POST["guestNo_update"];
  $bookingId=$_POST["bookingId_update"];
  $arrival_update=$_POST["arrival_update"];
  $checkout_update=$_POST["checkout_update"];
  // Prepare the statement:
- $stmt = $conn->prepare("UPDATE the_lodge_booking SET arrival=?, checkout=? WHERE bookingId=?");
- $stmt->bind_param("ssi", $arrival_update,$checkout_update,$bookingId);
+ $stmt = $conn->prepare("UPDATE the_lodge_booking SET comments=?, no_of_guests=?, arrival=?, checkout=? WHERE bookingId=?");
+ $stmt->bind_param("sissi", $comment,$guestNo,$arrival_update,$checkout_update,$bookingId);
  // Bind & execute the query statement:
   if (!$stmt->execute())
  {
