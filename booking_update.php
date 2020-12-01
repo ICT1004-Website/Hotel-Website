@@ -54,23 +54,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="g_info">
-                                <div class="panel panel-default">
+                            <?php
+                            if (is_null($_SESSION["memberid"])) {
+                                ?>
+                                <div class="tab-pane fade" id="g_info">
+                                    <div class="panel panel-default">
                                         <div class="panel-heading">Guest Information</div>
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="split-col">
                                                     <div class="form-group">
-                                                    <label>First Name:</label>
-                                                    <input type="text" name="fname" id="fname" class="form-control" placeholder="First Name" />
-                                                    <span id="error_fname" class="text-danger"></span>
+                                                        <label>First Name:</label>
+                                                        <input type="text" name="fname" id="fname" class="form-control" placeholder="First Name" />
+                                                        <span id="error_fname" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="split-col">
                                                     <div class="form-group">
-                                                    <label>Last Name:</label>
-                                                    <input type="text" name="lname" id="lname" class="form-control" placeholder="Last Name"/>
-                                                    <span id="error_lname" class="text-danger"></span>
+                                                        <label>Last Name:</label>
+                                                        <input type="text" name="lname" id="lname" class="form-control" placeholder="Last Name"/>
+                                                        <span id="error_lname" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,104 +339,105 @@
                                                 <button type="button" name="btn_g_info" id="btn_g_info" class="btn btn-info btn-lg">Next</button>
                                             </div>
                                             <br />
-                                            <?php
-                                            if (isset($_SESSION["memberid"])) {
-                                                $config = parse_ini_file('../../private/db-config.ini');
-                                                $conn = new mysqli($config['servername'], $config['username'],
-                                                        $config['password'], $config['dbname']);
-                                                //Check connection
-                                                if ($conn->connect_error) {
-                                                    $errorMsg = "Connection failed: " . $conn->connect_error;
-                                                    $success = false;
-                                                }
-                                                $sql = "SELECT fname, lname, country, emailAddress from the_lodge_member WHERE memberid =" . $_SESSION["memberid"] . ";";
-                                                $result = $conn->query($sql);
-                                                $row = $result->fetch_assoc();
-                                                echo "<section class='steps'>";
-                                                echo "<h3>Member Information</h3>";
-                                                echo "<h4> First Name: " . $row['fname'] . "</h4>";
-                                                echo "<h4> Last Name: " . $row['lname'] . "</h4>";
-                                                echo "<h4> Country: " . $row['country'] . "</h4>";
-                                                echo "<h4> Email: " . $row['emailAddress'] . "</h4>";
-                                                echo "</section>";
-                                                $_SESSION['memfname'] = $row['fname'];
-                                                $_SESSION['memlname'] = $row['lname'];
-                                                $_SESSION['memcountry'] = $row['country'];
-                                                $_SESSION['mememail'] = $row['emailAddress'];
-                                                $conn->close();
+                                        <?php
+                                        }
+                                        if (isset($_SESSION["memberid"])) {
+                                            $config = parse_ini_file('../../private/db-config.ini');
+                                            $conn = new mysqli($config['servername'], $config['username'],
+                                                    $config['password'], $config['dbname']);
+                                            //Check connection
+                                            if ($conn->connect_error) {
+                                                $errorMsg = "Connection failed: " . $conn->connect_error;
+                                                $success = false;
                                             }
-                                            ?>
+                                            $sql = "SELECT fname, lname, country, emailAddress from the_lodge_member WHERE memberid =" . $_SESSION["memberid"] . ";";
+                                            $result = $conn->query($sql);
+                                            $row = $result->fetch_assoc();
+                                            echo "<section class='steps'>";
+                                            echo "<h3>Member Information</h3>";
+                                            echo "<h4> First Name: " . $row['fname'] . "</h4>";
+                                            echo "<h4> Last Name: " . $row['lname'] . "</h4>";
+                                            echo "<h4> Country: " . $row['country'] . "</h4>";
+                                            echo "<h4> Email: " . $row['emailAddress'] . "</h4>";
+                                            echo "</section>";
+                                            $_SESSION['memfname'] = $row['fname'];
+                                            $_SESSION['memlname'] = $row['lname'];
+                                            $_SESSION['memcountry'] = $row['country'];
+                                            $_SESSION['mememail'] = $row['emailAddress'];
+                                            $conn->close();
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="payment">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Payment</div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label>Card Holder Name:</label>
+                                            <input type="text" class="form-control" id="card_holder" name="card_holder" placeholder="Card Holder Name"><br>
+                                            <span id="error_card_holder" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Card Number:</label>
+                                            <input type="text"  class="form-control" id="card_number" name="card_number" placeholder="Card Number" data-mask="0000 0000 0000 0000">
+                                            <span id="error_card_number" class="text-danger"></span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="split-col">
+                                                <div class="form-group">
+                                                    <label>Expiry Date:</label>
+                                                    <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM / YY" data-mask="00 / 00">
+                                                    <span id="error_expiry_date" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="split-col">
+                                                <div class="form-group">
+                                                    <label>CVC:</label>
+                                                    <input type="text"  class="form-control" id="cvc" name="cvc" placeholder="CVC" data-mask="000">
+                                                    <span id="error_cvc" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div align="center">
+                                            <button type="button" name="previous_btn_payment" id="previous_btn_payment" class="btn btn-default btn-lg">Previous</button>
+                                            <button type="button" name="btn_payment" id="btn_payment" class="btn btn-success btn-lg" value="Confirm Booking">Confirm Booking</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="payment">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Payment</div>
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <label>Card Holder Name:</label>
-                                                <input type="text" class="form-control" id="card_holder" name="card_holder" placeholder="Card Holder Name"><br>
-                                                <span id="error_card_holder" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Card Number:</label>
-                                                <input type="text"  class="form-control" id="card_number" name="card_number" placeholder="Card Number" data-mask="0000 0000 0000 0000">
-                                                <span id="error_card_number" class="text-danger"></span>
-                                            </div>
-                                            <div class="row">
-                                                <div class="split-col">
-                                                    <div class="form-group">
-                                                        <label>Expiry Date:</label>
-                                                        <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM / YY" data-mask="00 / 00">
-                                                        <span id="error_expiry_date" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="split-col">
-                                                    <div class="form-group">
-                                                        <label>CVC:</label>
-                                                        <input type="text"  class="form-control" id="cvc" name="cvc" placeholder="CVC" data-mask="000">
-                                                        <span id="error_cvc" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div align="center">
-                                                <button type="button" name="previous_btn_payment" id="previous_btn_payment" class="btn btn-default btn-lg">Previous</button>
-                                                <button type="button" name="btn_payment" id="btn_payment" class="btn btn-success btn-lg" value="Confirm Booking">Confirm Booking</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-        <div class="summary">
-            <div class="container">
-                <?php
-                $start = $_POST['start'];
-                $end = $_POST['end'];
-                $roomtype = $_POST['roomtype'];
-                $price = $_POST['price'];
-                $quantity = $_POST['quantity'];
-                $image = $_POST['image'];
-                $_SESSION['arrival'] = $start;
-                $_SESSION['checkout'] = $end;
-                $_SESSION['roomtype'] = $roomtype;
-                $_SESSION['image'] = $image;
-                $_SESSION['quantity'] = $quantity;
-                $_SESSION['price'] = $price;
-                echo "<h3>" . $roomtype . "<span class='summary' style='color:black'><i class='summary'></i></span></h3>";
-                echo "<img src='images/" . $image . "' alt='" . $image . "' title='" . $image . "' width='300' height='200'>";
-                echo "<h5>Arrival Date: " . $start . "</h5>";
-                echo "<h5>Checkout Date: " . $end . "</h5>";
-                echo "<h5>No. of Guests: " . $quantity . "</h5>";
-                echo "<h5>Price: $" . $price . "</h5>";
-                ?>                        
+            <div class="summary">
+                <div class="container">
+                    <?php
+                    $start = $_POST['start'];
+                    $end = $_POST['end'];
+                    $roomtype = $_POST['roomtype'];
+                    $price = $_POST['price'];
+                    $quantity = $_POST['quantity'];
+                    $image = $_POST['image'];
+                    $_SESSION['arrival'] = $start;
+                    $_SESSION['checkout'] = $end;
+                    $_SESSION['roomtype'] = $roomtype;
+                    $_SESSION['image'] = $image;
+                    $_SESSION['quantity'] = $quantity;
+                    $_SESSION['price'] = $price;
+                    echo "<h3>" . $roomtype . "<span class='summary' style='color:black'><i class='summary'></i></span></h3>";
+                    echo "<img src='images/" . $image . "' alt='" . $image . "' title='" . $image . "' width='300' height='200'>";
+                    echo "<h5>Arrival Date: " . $start . "</h5>";
+                    echo "<h5>Checkout Date: " . $end . "</h5>";
+                    echo "<h5>No. of Guests: " . $quantity . "</h5>";
+                    echo "<h5>Price: $" . $price . "</h5>";
+                    ?>                        
+                </div>
             </div>
-        </div>
-        <?php
-        include "footer.inc.php";
-        ?>
+            <?php
+            include "footer.inc.php";
+            ?>
         </main>
     </body>
 </html>
