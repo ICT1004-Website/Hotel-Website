@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Slab:wght@400;700&display=swap');
+html{
+    max-width: 100%;
+    overflow-x: hidden;
+}
+body {
+  background: url("https://www.marinabaysands.com/content/dam/singapore/marinabaysands/master/main/home/Revamp/new-homepage/rooms/Deluxe-room.jpg");
+  background-size:cover;
+  background-repeat:no-repeat;
+  text-align: center;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+h1{
+  font-weight:400;
+  padding-top:0;
+  margin-top:50px;
+  font-family: 'Roboto Slab', serif;
+  text-align: center;
+  margin: -10px;
+  font-weight: bold;
+}
+
+.disabled {
+  display:none;
+}
+
+
+select {
+  width: 100%;
+  margin: 7px 0px;
+  display: inline-block;
+  padding: 12px 25px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 1em;
+  font-family:inherit;
+  background:white;
+}
+
+
+h3{
+text-align:justify;
+font-weight: bold;
+font-size: 30px;
+text-decoration: none;
+}
+
+.panel-body{
+    -ms-flex: 70%; /* IE10 */
+    flex: 70%;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.summary {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.split-col {
+  -ms-flex: 33%; /* IE10 */
+  flex: 33%;
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
+.label{
+    text-align: left;
+}
+
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column;
+  }
+  .summary {
+    margin-bottom: 20px;
+  }
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
